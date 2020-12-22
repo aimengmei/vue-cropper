@@ -167,6 +167,12 @@ module.exports = {
         <td>true | false</td>
     </tr>
     <tr>
+        <td>fixedWidth</td>
+        <td>固定截图框宽度 不允许改变</td>
+        <td>false</td>
+        <td>true | false</td>
+    </tr> 
+    <tr>
         <td>canMove</td>
         <td>上传图片是否可以移动</td>
         <td>true</td>
