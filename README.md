@@ -168,7 +168,7 @@ module.exports = {
     </tr>
     <tr>
         <td>fixedWidth</td>
-        <td>固定截图框宽度 不允许改变</td>
+        <td>固定截图框宽度 不允许改变 此时fixed参数不能为true</td>
         <td>false</td>
         <td>true | false</td>
     </tr> 
