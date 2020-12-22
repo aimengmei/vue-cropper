@@ -234,6 +234,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // 固定宽度 禁止改变截图框宽度
+    fixedWidth: {
+      type: Boolean,
+      default: false
+    },
     // 输出截图是否缩放
     full: {
       type: Boolean,
@@ -945,7 +950,7 @@ export default {
       window.addEventListener("mouseup", this.changeCropEnd);
       window.addEventListener("touchmove", this.changeCropNow);
       window.addEventListener("touchend", this.changeCropEnd);
-      this.canChangeX = w;
+      this.canChangeX = this.fixedWidth ? false : w;
       this.canChangeY = h;
       this.changeCropTypeX = typeW;
       this.changeCropTypeY = typeH;
