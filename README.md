@@ -232,6 +232,12 @@ module.exports = {
         <td>10</td>
         <td>number, string, [number, number]</td>
     </tr> -->
+    <tr>
+        <td>limitMaxSize</td>
+        <td>截图框最大宽高，为0时不限制</td>
+        <td>0</td>
+        <td>number, string, [number, number]</td>
+    </tr>
   </tbody>
 </table>
 
