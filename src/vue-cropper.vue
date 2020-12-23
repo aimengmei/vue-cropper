@@ -301,7 +301,7 @@ export default {
       type: String,
       default: "contain"
     },
-    //限制最小区域,可传1以上的数字和字符串，限制长宽都是这么大
+    // 限制最小区域,可传1以上的数字和字符串，限制长宽都是这么大
     // 也可以传数组[90,90] 
     limitMinSize: {
       type: [Number, Array, String],
@@ -309,6 +309,14 @@ export default {
         return 10;
       }
     },
+    // 限制长宽最大值,可传数字和字符串 为0时不限制
+    // 也可以传数组[90, 90] 
+    limitMaxSize: {
+      type: [Number, Array, String],
+      default: () => {
+        return 0;
+      }
+    }
   },
   computed: {
     cropInfo() {
@@ -974,6 +982,12 @@ export default {
     // 正在改变
     changeCropNow(e) {
       e.preventDefault();
+
+      // 限制裁剪框最大宽度和高度
+      const { limitMaxSize } = this
+      let limitMaxNum = new Array;
+      limitMaxNum = !Array.isArray(limitMaxSize) ? [limitMaxSize, limitMaxSize] : limitMaxSize
+
       var nowX = 'clientX' in e ? e.clientX : e.touches ? e.touches[0].clientX : 0;
       var nowY = 'clientY' in e ? e.clientY : e.touches ? e.touches[0].clientY : 0;
       // 容器的宽高
@@ -1041,6 +1055,9 @@ export default {
                   : minX;
             }
           }
+          if(parseFloat(limitMaxNum[0]) > 0 && parseFloat(this.cropW / this.scale) > parseFloat(limitMaxNum[0])) {
+            this.cropW = parseFloat(parseFloat(limitMaxNum[0]) * this.scale)
+          }
         }
 
         if (this.canChangeY) {
@@ -1080,6 +1097,9 @@ export default {
                   ? this.cropChangeY - Math.abs(fh + this.cropOldH)
                   : minY;
             }
+          }
+          if(parseFloat(limitMaxNum[1]) > 0 && parseFloat(this.cropH / this.scale) > parseFloat(limitMaxNum[1])) { 
+            this.cropH = parseFloat(parseFloat(limitMaxNum[1]) * this.scale)
           }
         }
 
@@ -1719,8 +1739,8 @@ export default {
       }
       // 截图框默认大小
       // 如果为0 那么计算容器大小 默认为80%
-      var w = cw ? cw : parseFloat(this.autoCropWidth);
-      var h = ch ? ch : parseFloat(this.autoCropHeight);
+      var w = cw ? cw : parseFloat(this.autoCropWidth * this.scale);
+      var h = ch ? ch : parseFloat(this.autoCropHeight * this.scale);
       if (w === 0 || h === 0) {
         w = maxWidth * 0.8;
         h = maxHeight * 0.8;
